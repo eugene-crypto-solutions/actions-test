@@ -1,0 +1,36 @@
+name: Test 
+
+on:
+  # For testing workflows
+  push:
+    branches: master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Branch Parsing
+        id: service
+        run: echo "service=${{ github.ref_name }}" | sed 's/mas//' >> $GITHUB_OUTPUT
+      - name: Case Phrase
+        id: dockerfile
+        run: |
+          case ${{ steps.service.outputs.service }} in
+            ter)
+              echo "dockerfile=foo" >> $GITHUB_OUTPUT
+              ;;
+          esac
+      - name: Check
+        run: |
+          if [ ${{ steps.service.outputs.service }} == "ter" ]; then
+            exit 0
+          else
+            exit 1
+          fi
+
+          if [ ${{ steps.dockerfile.outputs.dockerfile }} == "foo" ]; then
+            exit 0
+          else
+            exit 1
+          fi
