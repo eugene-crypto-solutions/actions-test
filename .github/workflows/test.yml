@@ -16,3 +16,5 @@ jobs:
         run: git log -n 1 --format="%h" | xargs echo "sha=" | sed 's/ //' >> $GITHUB_OUTPUT
       - name: "Print SHA"
         run: echo ${{ steps.sha.outputs.sha }}
+      - name: "Print Github SHA"
+        run: echo ${{ github.sha }}
