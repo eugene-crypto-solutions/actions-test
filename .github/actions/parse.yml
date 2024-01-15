@@ -1,0 +1,19 @@
+name: 'Parse Shell'
+description: Parse shell script line by line
+inputs:
+  script:
+    description: shell script
+    required: true
+output:
+  command:
+    description: array of shell script lines
+    value: ${{ steps.parse.output.commands }}
+
+runs:
+  using: composite
+  steps:
+    - id: parse
+      run: |
+        cat ${{ inputs.script }} | sed 's/\(\\\|"\)/\\\1/g' | while IFS= read -r line; do echo -n [\\\"; echo -n $line | sed 's/\(\\\|"\|;\)/\\\1/g'; echo -n \\\"]; done | sed 's/\]\[/,/g' | xargs echo "command=" | sed 's/ //' >> $GITHUB_OUTPUT
+      shell: bash
+    - run: echo ${{ steps.parse.output.commands }}
