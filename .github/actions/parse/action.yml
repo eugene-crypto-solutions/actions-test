@@ -7,7 +7,7 @@ inputs:
 output:
   command:
     description: array of shell script lines
-    value: ${{ steps.parse.output.commands }}
+    value: ${{ steps.parse.outputs.commands }}
 
 runs:
   using: composite
@@ -16,5 +16,5 @@ runs:
       run: |
         cat ${{ inputs.script }} | sed 's/\(\\\|"\)/\\\1/g' | while IFS= read -r line; do echo -n [\\\"; echo -n $line | sed 's/\(\\\|"\|;\)/\\\1/g'; echo -n \\\"]; done | sed 's/\]\[/,/g' | xargs echo "commands=" | sed 's/ //' >> $GITHUB_OUTPUT
       shell: bash
-    - run: echo ${{ steps.parse.output.commands }}
+    - run: echo ${{ steps.parse.outputs.commands }}
       shell: bash
