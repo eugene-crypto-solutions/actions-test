@@ -14,6 +14,7 @@ runs:
   steps:
     - id: parse
       run: |
-        cat ${{ inputs.script }} | sed 's/\(\\\|"\)/\\\1/g' | while IFS= read -r line; do echo -n [\\\"; echo -n $line | sed 's/\(\\\|"\|;\)/\\\1/g'; echo -n \\\"]; done | sed 's/\]\[/,/g' | xargs echo "command=" | sed 's/ //' >> $GITHUB_OUTPUT
+        cat ${{ inputs.script }} | sed 's/\(\\\|"\)/\\\1/g' | while IFS= read -r line; do echo -n [\\\"; echo -n $line | sed 's/\(\\\|"\|;\)/\\\1/g'; echo -n \\\"]; done | sed 's/\]\[/,/g' | xargs echo "commands=" | sed 's/ //' >> $GITHUB_OUTPUT
       shell: bash
     - run: echo ${{ steps.parse.output.commands }}
+      shell: bash
