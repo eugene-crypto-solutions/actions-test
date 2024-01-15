@@ -4,7 +4,7 @@ inputs:
   script:
     description: shell script
     required: true
-output:
+outputs:
   command:
     description: array of shell script lines
     value: ${{ steps.parse.outputs.commands }}
