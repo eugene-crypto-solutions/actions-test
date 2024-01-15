@@ -15,4 +15,4 @@ jobs:
       - name: Parse
         uses: ./.github/actions/parse
         with:
-          scripts: example.sh
+          script: example.sh
