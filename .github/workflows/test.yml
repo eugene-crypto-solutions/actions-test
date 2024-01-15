@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install redocly
-        id: redocly
-        run: npm i -g @redocly/cli@latest
+      - name: parse
+        uses: ./.github/actions/parse.yml
+        with:
+          scripts: example.sh
