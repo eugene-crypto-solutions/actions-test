@@ -6,13 +6,13 @@ on:
     branches: master
 
 jobs:
-  test:
+  sha:
     runs-on: ubuntu-latest
-
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: Parse
-        uses: ./.github/actions/parse
-        with:
-          script: example.sh
+      - name: "Get SHA"
+        id: sha
+        run: git log -n 1 --format="%h" | xargs echo "sha=" | sed 's/ //' >> $GIHTUB_OUTPUT
+      - name: "Print SHA"
+        run: echo ${{ steps.sha.outputs.sha }}
