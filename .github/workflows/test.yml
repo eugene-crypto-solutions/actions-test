@@ -13,6 +13,6 @@ jobs:
         uses: actions/checkout@v3
       - name: "Get SHA"
         id: sha
-        run: git log -n 1 --format="%h" | xargs echo "sha=" | sed 's/ //' >> $GIHTUB_OUTPUT
+        run: git log -n 1 --format="%h" | xargs echo "sha=" | sed 's/ //' >> $GITHUB_OUTPUT
       - name: "Print SHA"
         run: echo ${{ steps.sha.outputs.sha }}
