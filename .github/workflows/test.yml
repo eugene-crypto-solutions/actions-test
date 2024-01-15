@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
+      - name: "Greeting"
+        uses: ./.github/actions/greeting
       - name: Parse
         uses: ./.github/actions/parse
         with:
