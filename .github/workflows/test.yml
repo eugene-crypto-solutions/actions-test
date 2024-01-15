@@ -10,7 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: parse
+      - name: "Checkout"
+        uses: actions/checkout@v3
+      - name: Parse
         uses: ./.github/actions/parse.yml
         with:
           scripts: example.sh
