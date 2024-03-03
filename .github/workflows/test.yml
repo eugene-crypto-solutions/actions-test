@@ -2,8 +2,7 @@ name: Test
 
 on:
   # For testing workflows
-  push:
-    branches: master
+  push
 
 jobs:
   sha:
@@ -11,10 +10,8 @@ jobs:
     steps:
       - name: "Checkout"
         uses: actions/checkout@v3
-      - name: "Get SHA"
-        id: sha
-        run: git log -n 1 --format="%h" | xargs echo "sha=" | sed 's/ //' >> $GITHUB_OUTPUT
-      - name: "Print SHA"
-        run: echo ${{ steps.sha.outputs.sha }}
-      - name: "Print Github SHA"
-        run: echo ${{ github.sha }}
+      - name: "Identify Service"
+        id: service
+        run: echo "service=${{ github.ref_name }}" | sed 's/dev\///' >> $GITHUB_OUTPUT
+      - name: "Print Service"
+        run: echo ${{ steps.service.outputs.service }}
